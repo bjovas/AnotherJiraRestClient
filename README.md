@@ -1,3 +1,10 @@
+Welcome to this Fork.
+The original repo didn't compile right of the bat, so this is just some small adjustments to get everything working out of the box.
+
+
+
+
+
 AnotherJiraRestClient
 =====================
 AnotherJiraRestClient is a(nother) .NET wrapper for the [Jira REST API](http://docs.atlassian.com/jira/REST/latest/) written in C#.
@@ -37,7 +44,12 @@ Example usage in C#:
 
 Example usage in C#:
 
-    var account = new JiraAccount("https://example.atlassian.net", "user", "password");
+    var account = new JiraAccount()
+    {
+		ServerUrl = "URL!!!",
+        User = "USERNAME!!!",
+        Password = "PASSWORD!!!"
+    };
     var client = new JiraClient(account);
 	
 	// Create object representation of a new issue
