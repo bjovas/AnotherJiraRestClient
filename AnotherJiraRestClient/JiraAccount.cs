@@ -12,7 +12,7 @@ namespace AnotherJiraRestClient
     public class JiraAccount
     {
         /// <summary>
-        /// Jira server url, for example https://example.atalassian.net. Please note that the
+        /// Jira server url, for example https://example.atlassian.net. Please note that the
         /// protocol needs to be https.
         /// </summary>
         public string ServerUrl { get; set; }
@@ -26,5 +26,12 @@ namespace AnotherJiraRestClient
         /// Jira server password
         /// </summary>
         public string Password { get; set; }
+
+        public JiraAccount(string serverUrl, string username, string password)
+        {
+            ServerUrl = serverUrl;
+            User = username;
+            Password = password;
+        }
     }
 }

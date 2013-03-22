@@ -19,8 +19,8 @@ class. See XML documentation for more details, this document only captues a few 
 with the specified key. `Issue` matches the JSON object 
 returned from the Jira API.
 Example usage in C#:
-    
-    var account = new JiraAccount("https://example.atlassian.net", "user", "password");
+      
+	var account = new JiraAccount("https://example.atlassian.net", "user", "password");
     var client = new JiraClient(account);
 	// Retrieve issue with key TES-1
     var issue = client.GetIssue("TES-1");
@@ -30,7 +30,7 @@ Example usage in C#:
 by searching using the specified jql query (see Jira API documentation).
 Example usage in C#:
     
-    var account = new JiraAccount("https://example.atlassian.net", "user", "password");
+	var account = new JiraAccount("https://example.atlassian.net", "user", "password");
     var client = new JiraClient(account);
 	// Retrieve issues in project TES and priority 1, 2 or 3.
     var issues = client.GetIssuesByJql(
@@ -44,12 +44,7 @@ Example usage in C#:
 
 Example usage in C#:
 
-    var account = new JiraAccount()
-    {
-		ServerUrl = "URL!!!",
-        User = "USERNAME!!!",
-        Password = "PASSWORD!!!"
-    };
+	var account = new JiraAccount("https://example.atlassian.net", "user", "password");
     var client = new JiraClient(account);
 	
 	// Create object representation of a new issue
