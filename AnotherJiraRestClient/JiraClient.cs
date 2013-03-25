@@ -48,7 +48,9 @@ namespace AnotherJiraRestClient
                       "RestSharp response status: " + response.ResponseStatus + " - HTTP response: " + response.StatusCode + " - " + response.StatusDescription
                     + " - " + response.Content);
             else
+            {
                 return response.Data;
+            }
         }
 
         /// <summary>
@@ -206,6 +208,40 @@ namespace AnotherJiraRestClient
             request.AddBody(newIssue);
 
             return Execute<BasicIssue>(request, HttpStatusCode.Created);
+        }
+
+
+
+        /// <summary>
+        /// First attempt at adding a comment to a issue
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public bool AddComment(string id, string text)
+        {
+            try
+            {
+                var request = new RestRequest()
+                {
+                    Resource = "rest/api/2/issue/" + id + "/comment",
+                    RequestFormat = DataFormat.Json,
+                    Method = Method.POST
+                };
+
+                Comment newComment = new Comment() { body = text };
+
+                request.AddBody(newComment);
+
+                var returnvalue = Execute<BasicIssue>(request, HttpStatusCode.Created);
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
         }
 
         /// <summary>

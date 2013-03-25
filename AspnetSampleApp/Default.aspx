@@ -22,6 +22,11 @@
         <p>
             <asp:Button ID="OutOfMemoryExceptionButton" runat="server" Text="OutOfMemoryException" OnClick="OutOfMemoryExceptionButton_Click" /></p>
     </div>
+        <div>
+        <h2>Database Exception</h2>
+        <p>
+            <asp:Button ID="DatabaseExceptionButton" runat="server" Text="DatabaseException" OnClick="DatabaseExceptionButton_Click" /></p>
+    </div>
     </form>
 </body>
 </html>

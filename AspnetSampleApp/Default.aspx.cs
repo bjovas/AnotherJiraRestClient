@@ -23,5 +23,12 @@ namespace AspnetSampleApp
         {
             throw new OutOfMemoryException("This is a fake exception created at " + DateTime.Now.ToShortTimeString());
         }
+
+        protected void DatabaseExceptionButton_Click(object sender, EventArgs e)
+        {
+            var database = new DataBaseStuff();
+
+            database.GetUserIdFromUsername("MyUser");
+        }
     }
 }
