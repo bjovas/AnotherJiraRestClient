@@ -18,4 +18,14 @@ namespace AnotherJiraRestClient.JiraModel
         public string type { get; set; }
         public string defaultValue { get; set; }
     }
+
+    public class Key
+    {
+        public string key { get; set; }
+    }
+
+    public class Name
+    {
+        public string name { get; set; }
+    }
 }

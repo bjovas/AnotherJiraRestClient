@@ -40,6 +40,8 @@ namespace AnotherJiraRestClient
         /// <returns>deserialized response of request</returns>
         public T Execute<T>(RestRequest request, HttpStatusCode expectedResponseCode) where T : new()
         {
+
+
             // Won't throw exception.
             var response = client.Execute<T>(request);
 
@@ -241,6 +243,41 @@ namespace AnotherJiraRestClient
 
                 return false;
             }
+        }
+
+
+        public bool AddIssueLink(string idFrom, string idTo, string linkType)
+        {
+            var link = new IssueLink();
+
+            link.inwardIssue = new Key() { key = idTo };
+            link.outwardIssue = new Key() { key = idFrom };
+            link.type = new Name() { name = linkType } ;
+
+            link.comment = new Comment() { body = "trying to link these two issues!" };
+            
+
+            try
+            {
+                var request = new RestRequest()
+                {
+                    Resource = "rest/api/2/issueLink",
+                    RequestFormat = DataFormat.Json,
+                    Method = Method.POST
+                };
+
+                request.AddBody(link);
+
+                var returnvalue = Execute<IssueLink>(request, HttpStatusCode.Created);
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+
+
 
         }
 

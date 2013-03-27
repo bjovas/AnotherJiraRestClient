@@ -23,4 +23,14 @@ namespace AnotherJiraRestClient.JiraModel
         public string name { get; set; }
         public string id { get; set; }
     }
+
+    public class IssueLink
+    {
+        public Name type { get; set; }
+        public Key inwardIssue { get; set; }
+        public Key outwardIssue { get; set; }
+        public Comment comment { get; set; }
+
+
+    }
 }
