@@ -13,19 +13,22 @@
         <p>Click the buttons to trigger some sample exceptions, and log them from global.asax</p>  
     </div>
     <div>
-        <h2>ArgumentException</h2>
+        <h2>ArgumentException - Something fails directly on the website</h2>
         <p>
-            <asp:Button ID="ArgumentExceptionButton" runat="server" Text="ArgumentException" OnClick="ArgumentExceptionButton_Click" /></p>
+            <asp:Button ID="ArgumentExceptionButton" runat="server" Text="ArgumentException" OnClick="ArgumentExceptionButton_Click" />
+        </p>
     </div>
     <div>
-        <h2>OutOfMemoryException</h2>
+        <h2>OutOfMemoryException - Something fails in class library</h2>
         <p>
-            <asp:Button ID="OutOfMemoryExceptionButton" runat="server" Text="OutOfMemoryException" OnClick="OutOfMemoryExceptionButton_Click" /></p>
+            <asp:Button ID="OutOfMemoryExceptionButton" runat="server" Text="OutOfMemoryException" OnClick="OutOfMemoryExceptionButton_Click" />
+        </p>
     </div>
         <div>
-        <h2>Database Exception</h2>
+        <h2>Database Exception - Fail when trying to access SQL server</h2>
         <p>
-            <asp:Button ID="DatabaseExceptionButton" runat="server" Text="DatabaseException" OnClick="DatabaseExceptionButton_Click" /></p>
+            <asp:Button ID="DatabaseExceptionButton" runat="server" Text="DatabaseException" OnClick="DatabaseExceptionButton_Click" />
+        </p>
     </div>
     </form>
 </body>

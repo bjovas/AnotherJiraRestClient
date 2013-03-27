@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnotherJiraRestClient", "An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetSampleApp", "AspnetSampleApp\AspnetSampleApp.csproj", "{2A7871F2-6F3E-47E9-978C-4E4F6C2576BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClassLibrary", "SampleClassLibrary\SampleClassLibrary.csproj", "{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{2A7871F2-6F3E-47E9-978C-4E4F6C2576BA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2A7871F2-6F3E-47E9-978C-4E4F6C2576BA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2A7871F2-6F3E-47E9-978C-4E4F6C2576BA}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C1514F7A-6E22-42FE-9C62-D2DE47643B1B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
