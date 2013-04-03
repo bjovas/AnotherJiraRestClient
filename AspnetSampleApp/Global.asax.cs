@@ -17,8 +17,11 @@ namespace AspnetSampleApp
             var url = ConfigurationManager.AppSettings["url"];
             var username = ConfigurationManager.AppSettings["username"];
             var password = ConfigurationManager.AppSettings["password"];
+            var timeout = ConfigurationManager.AppSettings["timeout"];
             var meta = ConfigurationManager.AppSettings["meta"];
             var jiraProject = ConfigurationManager.AppSettings["jiraProject"];
+            var customfield_message = ConfigurationManager.AppSettings["cf_exceptionmessage"];
+            var customfield_stacktrace = ConfigurationManager.AppSettings["cf_exceptionstacktrace"];
 
             var context = HttpContext.Current;
             var exception = context.Server.GetLastError();
@@ -56,14 +59,18 @@ namespace AspnetSampleApp
 
             var account = new JiraAccount(url, username, password);
             var client = new JiraClient(account);
+            client.Timeout = int.Parse(timeout);
                 
             var jqlQuery = String.Format("project = \"{0}\" AND text ~ \"{1}\" ORDER BY key ASC", jiraProject, subject).Replace("\\", "\\\\");
             var issues = client.GetIssuesByJql(jqlQuery, 0, 3,
-                new string[] { AnotherJiraRestClient.Issue.FIELD_SUMMARY, AnotherJiraRestClient.Issue.FIELD_STATUS, AnotherJiraRestClient.Issue.FIELD_PRIORITY });
+                new string[] { 
+                    Issue.FIELD_SUMMARY, Issue.FIELD_STATUS, Issue.FIELD_PRIORITY });
 
             if (issues.total == 0)
             {
                 var newIssue = new CreateIssue(jiraProject, subject, sb.ToString(), "1", "1", new string[] { "label1", "label2" });
+                newIssue.AddField(customfield_message, exception.Message);
+                newIssue.AddField(customfield_stacktrace, exception.StackTrace);
                 var createdIssue = client.CreateIssue(newIssue);
 
                 // And here we would show a screen where the user could input some valuable information
@@ -80,6 +87,8 @@ namespace AspnetSampleApp
                 client.AddComment(issues.issues[0].key, "This is the first time this exact issue has happened again!");
 
                 var newIssue = new CreateIssue("IN", subject, sb.ToString(), "1", "1", new string[] { "label1", "label2" });
+                newIssue.AddField(customfield_message, exception.Message);
+                newIssue.AddField(customfield_stacktrace, exception.StackTrace);
                 var createdIssue = client.CreateIssue(newIssue);
                 client.AddIssueLink(issues.issues[0].key, createdIssue.key, "Duplicate");
 
@@ -97,6 +106,9 @@ namespace AspnetSampleApp
                 client.AddComment(issues.issues[0].key, "This is not the first time this exception has reoccured");
 
                 var newIssue = new CreateIssue("IN", subject, sb.ToString(), "1", "1", new string[] { "label1", "label2" });
+                newIssue.AddField(customfield_message, exception.Message);
+                newIssue.AddField(customfield_stacktrace, exception.StackTrace);
+
                 var createdIssue = client.CreateIssue(newIssue);
 
                 client.AddIssueLink(issues.issues[0].key, createdIssue.key, "Duplicate");
