@@ -17,6 +17,13 @@ namespace AnotherJiraRestClient
     {
         private readonly RestClient client;
 
+        public int Timeout 
+        { 
+            get { return client.Timeout; }
+            set { client.Timeout = value; }
+        }
+
+
         /// <summary>
         /// Constructs a JiraClient.
         /// </summary>
@@ -26,7 +33,7 @@ namespace AnotherJiraRestClient
             client = new RestClient(account.ServerUrl)
             {
                 Authenticator = new HttpBasicAuthenticator(account.User, account.Password)
-            };
+            };       
         }
 
         /// <summary>
@@ -208,6 +215,7 @@ namespace AnotherJiraRestClient
             };
 
             request.AddBody(newIssue);
+         
 
             return Execute<BasicIssue>(request, HttpStatusCode.Created);
         }
