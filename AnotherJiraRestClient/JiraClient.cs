@@ -220,6 +220,45 @@ namespace AnotherJiraRestClient
             return Execute<BasicIssue>(request, HttpStatusCode.Created);
         }
 
+        /// <summary>
+        /// First attempt at getting the necessary stuff to prepare for updating a created issue.
+        /// May very well happen that this method gets deleted.
+        /// </summary>
+        /// <param name="newIssue"></param>
+        /// <returns></returns>
+        public Issue CreateIssue2(CreateIssue newIssue)
+        {
+            var request = new RestRequest()
+            {
+                Resource = "rest/api/2/issue",
+                RequestFormat = DataFormat.Json,
+                Method = Method.POST
+            };
+
+            request.AddBody(newIssue);
+
+            return Execute<Issue>(request, HttpStatusCode.Created);
+        }
+
+        /// <summary>
+        /// First attempt at updating a issue
+        /// </summary>
+        /// <param name="issue"></param>
+        /// <returns></returns>
+        public UpdateIssue UpdateIssue(UpdateIssue issue, string key)
+        {
+            var request = new RestRequest()
+            {
+                Resource = "rest/api/2/issue/" + key,
+                RequestFormat = DataFormat.Json,
+                Method = Method.PUT
+            };
+
+            request.AddBody(issue);
+
+            return Execute<UpdateIssue>(request, HttpStatusCode.OK);
+        }
+
 
 
         /// <summary>
