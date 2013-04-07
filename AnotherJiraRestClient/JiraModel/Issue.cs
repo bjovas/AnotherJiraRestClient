@@ -53,19 +53,4 @@ namespace AnotherJiraRestClient
 
         public Fields fields { get; set; }
     }
-
-    public class UpdateIssue
-    {
-        // Field names
-        
-        public const string FIELD_DESCRIPTION = "description";
-       // public const string FIELD_LABELS = "labels";
-       
-        public Fields fields { get; set; }
-
-        public class Fields
-        {           
-            public string description { get; set; }           
-        }
-    }
 }

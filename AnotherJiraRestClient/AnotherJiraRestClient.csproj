@@ -48,6 +48,7 @@
     <Compile Include="JiraModel\Attachment.cs" />
     <Compile Include="JiraModel\CreateIssue.cs" />
     <Compile Include="JiraModel\BasicIssue.cs" />
+    <Compile Include="JiraModel\Fields.cs" />
     <Compile Include="JiraModel\Issue.cs" />
     <Compile Include="JiraModel\IssueCreateMeta.cs" />
     <Compile Include="JiraModel\Issues.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="JiraModel\JiraApiException.cs" />
     <Compile Include="JiraModel\Priority.cs" />
     <Compile Include="JiraModel\Status.cs" />
+    <Compile Include="JiraModel\UpdateIssue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
