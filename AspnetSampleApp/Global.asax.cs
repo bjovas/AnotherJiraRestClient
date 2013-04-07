@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net;
 using System.Text;
+using EasyHttp;
 using System.Configuration;
 using AnotherJiraRestClient;
 using AnotherJiraRestClient.JiraModel;
 using System.Diagnostics;
+using EasyHttp.Http;
 
 namespace AspnetSampleApp
 {
@@ -22,6 +25,7 @@ namespace AspnetSampleApp
             var jiraProject = ConfigurationManager.AppSettings["jiraProject"];
             var customfield_message = ConfigurationManager.AppSettings["cf_exceptionmessage"];
             var customfield_stacktrace = ConfigurationManager.AppSettings["cf_exceptionstacktrace"];
+            var emulatedResponseFromCustomer = EmulateInputFromCustomer();
 
             var context = HttpContext.Current;
             var exception = context.Server.GetLastError();
@@ -86,26 +90,38 @@ namespace AspnetSampleApp
             {          
                 client.AddComment(issues.issues[0].key, "This is the first time this exact issue has happened again!");
 
-                var newIssue = new CreateIssue("IN", subject, sb.ToString(), "1", "1", new string[] { "label1", "label2" });
+                var newIssue = new CreateIssue("IN", subject, sb.ToString(), "1", "1", new string[] { "Autocreated"});
                 newIssue.AddField(customfield_message, exception.Message);
                 newIssue.AddField(customfield_stacktrace, exception.StackTrace);
                 var createdIssue = client.CreateIssue(newIssue);
                 client.AddIssueLink(issues.issues[0].key, createdIssue.key, "Duplicate");
 
-                // And here we would show a screen where the user could input some valuable information
-                // and afterwards we would have updated the issue with the new info.
+                if (emulatedResponseFromCustomer.Item1)
+                {
+                    Issue issueToUpdate = client.GetIssue(createdIssue.key, new string[] { "description", "labels"});
+
+
+
+                    UpdateIssue updateIssue = new UpdateIssue();
+                    
+                    updateIssue.fields.description = emulatedResponseFromCustomer.Item2;
+                    //updateIssue.fields.labels.Add("Customer feedback");
+
+                    client.UpdateIssue(updateIssue, issueToUpdate.key);
+
+                }
 
                 // Return error page
                 HttpContext.Current.ClearError();
                 Response.StatusCode = 500;
-                Response.Write("OH NO! This is the first time this exact issue has happened before!");
+                Response.Write("OH NO! This is not the first time this exception has reoccured. Customer feedback? " + emulatedResponseFromCustomer.Item1);
 
             }
             else
             {
                 client.AddComment(issues.issues[0].key, "This is not the first time this exception has reoccured");
 
-                var newIssue = new CreateIssue("IN", subject, sb.ToString(), "1", "1", new string[] { "label1", "label2" });
+                var newIssue = new CreateIssue("IN", subject, sb.ToString(), "1", "4", new string[] { "Autocreated"});
                 newIssue.AddField(customfield_message, exception.Message);
                 newIssue.AddField(customfield_stacktrace, exception.StackTrace);
 
@@ -116,11 +132,47 @@ namespace AspnetSampleApp
                 // And here we would show a screen where the user could input some valuable information
                 // and afterwards we would have updated the issue with the new info.
 
+                if (emulatedResponseFromCustomer.Item1)
+                {
+                    var issueToUpdate = client.GetIssue(createdIssue.key, new string[] { "description", "labels" });
+
+
+                    UpdateIssue updateIssue = new UpdateIssue();
+                   
+
+                    updateIssue.fields = new UpdateIssue.Fields();
+                    updateIssue.fields.description = emulatedResponseFromCustomer.Item2;
+                    //updateIssue.fields.labels.Add("Customer feedback");
+                    //issueToUpdate.fields.description = emulatedResponseFromCustomer.Item2;
+                    //issueToUpdate.fields.labels.Add("Customer feedback");
+
+                    client.UpdateIssue(updateIssue, issueToUpdate.key);
+
+                }
+
                 // Return error page
                 HttpContext.Current.ClearError();
                 Response.StatusCode = 500;
-                Response.Write("OH NO! This is not the first time this exception has reoccured");
+                Response.Write("OH NO! This is not the first time this exception has reoccured. Customer feedback? " + emulatedResponseFromCustomer.Item1);
             }           
+        }
+
+        public Tuple<bool, string> EmulateInputFromCustomer()
+        {
+
+            var http = new HttpClient();
+            var response = http.Get("http://www.iheartquotes.com/api/v1/random");
+            
+
+         
+
+
+
+            if (response.RawText.Length > 50)          
+                return new Tuple<bool, string>(true, response.RawText );
+            
+            else
+                return new Tuple<bool, string>(false, "");
         }
 
         public Tuple<string, int> GetMethodNameAndLineNumberFromFrames(string meta, StackFrame[] frames)
